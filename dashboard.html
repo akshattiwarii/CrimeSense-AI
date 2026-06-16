@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CrimeSense AI Dashboard</title>
+    <link rel="stylesheet" href="styles.css?v=crime-ui-13" />
+  </head>
+  <body>
+    <nav class="top-nav">
+      <a class="brand-link" href="index.html" aria-label="CrimeSense AI home">
+        <span class="brand-mark"></span>
+        <span>CrimeSense AI</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Analyzer</a>
+        <a href="dashboard.html" aria-current="page">Dashboard</a>
+      </div>
+      <a class="nav-cta" href="index.html#complaintForm">Start triage</a>
+    </nav>
+
+    <main class="dashboard-shell" aria-labelledby="dashboardTitle">
+      <header class="dashboard-header">
+        <div>
+          <p class="eyebrow">Analytics Dashboard</p>
+          <h1 id="dashboardTitle">Complaint trends and category insights</h1>
+        </div>
+        <button type="button" class="secondary" id="refreshDashboardButton">Refresh Dashboard</button>
+      </header>
+
+      <div class="dashboard-metrics">
+        <div>
+          <span>Total Complaints</span>
+          <strong id="totalComplaintsText">0</strong>
+        </div>
+        <div>
+          <span>Most Common Cybercrime</span>
+          <strong id="topCybercrimeText">No data yet</strong>
+        </div>
+        <div>
+          <span>Top Category</span>
+          <strong id="topCategoryText">No data yet</strong>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <section class="dashboard-panel">
+          <h3>Category Distribution</h3>
+          <canvas id="categoryChart" height="260"></canvas>
+        </section>
+
+        <section class="dashboard-panel">
+          <h3>Weekly Trends</h3>
+          <canvas id="weeklyChart" height="260"></canvas>
+        </section>
+      </div>
+
+      <section class="dashboard-panel">
+        <h3>Recent Complaints</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Category</th>
+                <th>Priority</th>
+                <th>Summary</th>
+              </tr>
+            </thead>
+            <tbody id="recentComplaintsTable">
+              <tr>
+                <td colspan="4">No complaints analyzed yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="dashboard.js?v=crime-ui-13"></script>
+  </body>
+</html>

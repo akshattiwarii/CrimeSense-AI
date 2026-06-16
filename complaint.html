@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CrimeSense AI Complaint Record</title>
+    <link rel="stylesheet" href="styles.css?v=crime-ui-13" />
+  </head>
+  <body>
+    <nav class="top-nav">
+      <a class="brand-link" href="index.html" aria-label="CrimeSense AI home">
+        <span class="brand-mark"></span>
+        <span>CrimeSense AI</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Analyzer</a>
+        <a href="dashboard.html">Dashboard</a>
+      </div>
+      <a class="nav-cta" href="index.html#complaintForm">Start triage</a>
+    </nav>
+
+    <main class="dashboard-shell complaint-detail-shell">
+      <header class="dashboard-header">
+        <div>
+          <p class="eyebrow">Complaint Record</p>
+          <h1 id="complaintTitle">Loading complaint...</h1>
+        </div>
+      </header>
+
+      <div class="metric-grid">
+        <div>
+          <span>Category</span>
+          <strong id="detailCategory">-</strong>
+        </div>
+        <div>
+          <span>Priority</span>
+          <strong id="detailPriority">-</strong>
+        </div>
+        <div>
+          <span>Department</span>
+          <strong id="detailDepartment">-</strong>
+        </div>
+        <div>
+          <span>Generated At</span>
+          <strong id="detailTimestamp">-</strong>
+        </div>
+        <div>
+          <span>AI Engine</span>
+          <strong id="detailEngine">-</strong>
+        </div>
+        <div>
+          <span>Confidence</span>
+          <strong id="detailConfidence">-</strong>
+        </div>
+        <div>
+          <span>Human Review</span>
+          <strong id="detailReview">-</strong>
+        </div>
+      </div>
+
+      <section class="dashboard-panel">
+        <h3>Summary</h3>
+        <p id="detailSummary" class="reasoning-text">-</p>
+      </section>
+
+      <section class="dashboard-panel">
+        <h3>Keywords</h3>
+        <div id="detailKeywords" class="chips"></div>
+      </section>
+
+      <section class="dashboard-panel">
+        <h3>FIR Draft Details</h3>
+        <div id="detailFirDetails" class="detail-list"></div>
+      </section>
+
+      <div class="section-row">
+        <section class="dashboard-panel">
+          <h3>Evidence Checklist</h3>
+          <ul id="detailEvidence" class="check-list"></ul>
+        </section>
+
+        <section class="dashboard-panel">
+          <h3>Extracted Entities</h3>
+          <ul id="detailEntities" class="check-list"></ul>
+        </section>
+      </div>
+
+      <section class="dashboard-panel">
+        <h3>AI/ML Pipeline</h3>
+        <div id="detailPipeline" class="detail-list"></div>
+      </section>
+
+      <div class="section-row">
+        <section class="dashboard-panel">
+          <h3>Suggested Next Steps</h3>
+          <ol id="detailSteps" class="steps-list"></ol>
+        </section>
+
+        <section class="dashboard-panel">
+          <h3>AI Reasoning</h3>
+          <p id="detailReasoning" class="reasoning-text">-</p>
+        </section>
+      </div>
+
+      <section class="dashboard-panel">
+        <h3>Possible Legal Sections</h3>
+        <ul id="detailLegalSections" class="check-list"></ul>
+        <p class="muted-note">Legal sections are AI suggestions for officer/legal review, not final FIR charges.</p>
+      </section>
+
+      <section class="dashboard-panel">
+        <h3>Similar Registered Complaints</h3>
+        <div id="detailSimilar" class="similar-list"></div>
+      </section>
+
+      <section class="dashboard-panel">
+        <h3>Attached Evidence Images</h3>
+        <div id="detailAttachments" class="report-attachments"></div>
+      </section>
+
+      <section class="dashboard-panel">
+        <h3>Original Complaint</h3>
+        <p id="detailOriginal" class="reasoning-text">-</p>
+      </section>
+    </main>
+
+    <script src="complaint.js?v=crime-ui-13"></script>
+  </body>
+</html>

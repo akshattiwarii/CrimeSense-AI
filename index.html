@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CrimeSense AI Complaint Classifier</title>
+    <link rel="stylesheet" href="styles.css?v=crime-ui-13" />
+  </head>
+  <body>
+    <nav class="top-nav no-print">
+      <a class="brand-link" href="index.html" aria-label="CrimeSense AI home">
+        <span class="brand-mark"></span>
+        <span>CrimeSense AI</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" aria-current="page">Analyzer</a>
+        <a href="dashboard.html">Dashboard</a>
+      </div>
+      <a class="nav-cta" href="#complaintForm">Start triage</a>
+    </nav>
+
+    <main class="app-shell">
+      <section class="workspace">
+        <div class="intro">
+          <div class="hero-pill">
+            <span class="status-dot"></span>
+            <span id="heroPillText">AI-powered complaint triage for police teams</span>
+          </div>
+          <p class="eyebrow">CrimeSense AI</p>
+          <h1>Complaint classifier for police and cyber cell teams</h1>
+          <p>
+            Paste a citizen complaint and get category, priority, evidence checklist,
+            summary, department routing, and a printable PDF report.
+          </p>
+        </div>
+
+        <form id="complaintForm" class="complaint-panel" autocomplete="off">
+          <div class="fir-builder">
+            <div class="fir-builder-header">
+              <div>
+                <p class="eyebrow">Optional FIR Details</p>
+                <h3>Add extra information only when available</h3>
+              </div>
+              <label class="section-picker">
+                <span>Open section</span>
+                <select id="firSectionSelect" aria-label="Open optional FIR section">
+                  <option value="">Select details to fill</option>
+                  <option value="complainant">Complainant details</option>
+                  <option value="victim">Victim details</option>
+                  <option value="incident">Incident details</option>
+                  <option value="cybercrime">Cybercrime details</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="fir-section-empty" data-fir-empty>
+              Choose a section from the dropdown. These fields are optional and will be included in the generated report if filled.
+            </div>
+
+            <div class="form-section fir-section-panel hidden" data-fir-section="complainant">
+              <h3>Complainant Details</h3>
+              <div class="form-grid">
+                <label>Name<input id="complainantName" name="complainantName" autocomplete="off" /></label>
+                <label>Father's Name<input id="complainantFatherName" name="complainantFatherName" autocomplete="off" /></label>
+                <label>Contact Number<input id="complainantContact" name="complainantContact" autocomplete="off" /></label>
+                <label>Occupation<input id="complainantOccupation" name="complainantOccupation" autocomplete="off" /></label>
+              </div>
+              <label>Address<textarea id="complainantAddress" name="complainantAddress" rows="2" autocomplete="off"></textarea></label>
+            </div>
+
+            <div class="form-section fir-section-panel hidden" data-fir-section="victim">
+              <h3>Victim Details</h3>
+              <div class="form-grid">
+                <label>Victim Name<input id="victimName" name="victimName" autocomplete="off" /></label>
+                <label>Relation to Complainant<input id="victimRelation" name="victimRelation" autocomplete="off" /></label>
+              </div>
+              <label>Victim Address<textarea id="victimAddress" name="victimAddress" rows="2" autocomplete="off"></textarea></label>
+            </div>
+
+            <div class="form-section fir-section-panel hidden" data-fir-section="incident">
+              <h3>Incident Details</h3>
+              <div class="form-grid">
+                <label>Date<input id="incidentDate" name="incidentDate" type="date" /></label>
+                <label>Time<input id="incidentTime" name="incidentTime" type="time" /></label>
+                <label>Place<input id="incidentPlace" name="incidentPlace" autocomplete="off" /></label>
+                <label>Accused Name / Description<input id="accusedDetails" name="accusedDetails" autocomplete="off" /></label>
+              </div>
+            </div>
+
+            <div class="form-section fir-section-panel hidden" data-fir-section="cybercrime">
+              <h3>Cybercrime Details</h3>
+              <div class="form-grid">
+                <label>Transaction ID / UTR<input id="transactionId" name="transactionId" autocomplete="off" /></label>
+                <label>Accused Phone / Email / Handle<input id="accusedContact" name="accusedContact" autocomplete="off" /></label>
+                <label>Platform<input id="crimePlatform" name="crimePlatform" placeholder="WhatsApp, Instagram, UPI, Bank..." autocomplete="off" /></label>
+              </div>
+            </div>
+          </div>
+
+          <label for="complaintText">Complaint text</label>
+          <textarea
+            id="complaintText"
+            name="complaintText"
+            autocomplete="off"
+            data-clear-on-load="true"
+            rows="10"
+            placeholder="Example: Mujhe KYC update ke naam par link bheja gaya aur OTP maang kar Rs. 5000 nikal liye."
+          ></textarea>
+          <div class="form-section">
+            <h3>Evidence Images</h3>
+            <label class="file-drop" for="evidenceImages">
+              <span class="file-drop-title">Attach screenshots, bank statement photos, chat screenshots, or call log images</span>
+              <span class="file-upload-row">
+                <span class="file-upload-button">Choose evidence images</span>
+                <span id="fileUploadStatus" class="file-upload-status">No files selected</span>
+              </span>
+              <input id="evidenceImages" name="evidenceImages" type="file" accept="image/*" multiple />
+            </label>
+            <div id="attachmentPreview" class="attachment-preview"></div>
+          </div>
+          <div class="actions">
+            <button type="submit">Create Report</button>
+            <button type="button" class="ghost" id="clearButton">Clear</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="results" aria-live="polite">
+        <div id="emptyState" class="empty-state">
+          <h2>Analysis will appear here</h2>
+          <p>Enter a complaint to generate a clean case triage report.</p>
+        </div>
+
+        <article id="report" class="report hidden">
+          <header class="report-header">
+            <div>
+              <p class="eyebrow">Generated Report</p>
+              <h2 id="reportTitle">Complaint Analysis</h2>
+            </div>
+            <button type="button" id="printButton" class="secondary">Save PDF</button>
+          </header>
+
+          <div class="summary-box">
+            <span>Summary</span>
+            <p id="summaryText"></p>
+          </div>
+
+          <div class="metric-grid">
+            <div>
+              <span>Category</span>
+              <strong id="categoryText"></strong>
+            </div>
+            <div>
+              <span>Priority</span>
+              <strong id="priorityText"></strong>
+            </div>
+            <div>
+              <span>Suggested Department</span>
+              <strong id="departmentText"></strong>
+            </div>
+            <div>
+              <span>Generated At</span>
+              <strong id="timestampText"></strong>
+            </div>
+            <div>
+              <span>AI Engine</span>
+              <strong id="engineText"></strong>
+            </div>
+            <div>
+              <span>Provider Status</span>
+              <strong id="providerStatusText"></strong>
+            </div>
+            <div>
+              <span>Confidence</span>
+              <strong id="confidenceText"></strong>
+            </div>
+            <div>
+              <span>Human Review</span>
+              <strong id="reviewText"></strong>
+            </div>
+            <div>
+              <span>Complaint ID</span>
+              <strong id="complaintIdText"></strong>
+            </div>
+          </div>
+
+          <div class="section-row">
+            <section>
+              <h3>Detected Keywords</h3>
+              <div id="keywordsList" class="chips"></div>
+            </section>
+
+            <section>
+              <h3>Evidence Checklist</h3>
+              <ul id="evidenceList" class="check-list"></ul>
+            </section>
+          </div>
+
+          <section>
+            <h3>FIR Draft Details</h3>
+            <div id="firDetailsList" class="detail-list"></div>
+          </section>
+
+          <div class="section-row">
+            <section>
+              <h3>Extracted Entities</h3>
+              <ul id="entitiesList" class="check-list"></ul>
+            </section>
+
+            <section>
+              <h3>Reasoning</h3>
+              <p id="reasoningText" class="reasoning-text"></p>
+            </section>
+          </div>
+
+          <section>
+            <h3>AI/ML Pipeline</h3>
+            <div id="pipelineDetailsList" class="detail-list"></div>
+          </section>
+
+          <section>
+            <h3>Similar Registered Complaints</h3>
+            <div id="similarComplaintsList" class="similar-list"></div>
+          </section>
+
+          <section>
+            <h3>Possible Legal Sections</h3>
+            <ul id="legalSectionsList" class="check-list"></ul>
+            <p class="muted-note">Legal sections are AI suggestions for officer/legal review, not final FIR charges.</p>
+          </section>
+
+          <section>
+            <h3>Attached Evidence Images</h3>
+            <div id="reportAttachments" class="report-attachments"></div>
+          </section>
+
+          <section>
+            <h3>Suggested Next Steps</h3>
+            <ol id="stepsList" class="steps-list"></ol>
+          </section>
+
+          <section class="original-complaint">
+            <h3>Original Complaint</h3>
+            <p id="originalText"></p>
+          </section>
+        </article>
+      </section>
+    </main>
+
+    <script src="script.js?v=crime-ui-13"></script>
+  </body>
+</html>
