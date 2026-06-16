@@ -55,10 +55,11 @@ function drawBarChart(canvasId, rows, labelKey) {
 
   const chartRows = rows.slice(0, 7);
   const max = Math.max(...chartRows.map((row) => row.count), 1);
-  const left = 150;
+  const isNarrow = canvas.clientWidth < 430;
+  const left = isNarrow ? 104 : 150;
   const top = 20;
-  const barHeight = 24;
-  const gap = 12;
+  const barHeight = isNarrow ? 20 : 24;
+  const gap = isNarrow ? 10 : 12;
   const chartWidth = canvas.clientWidth - left - 48;
 
   context.font = "13px system-ui";
@@ -68,7 +69,7 @@ function drawBarChart(canvasId, rows, labelKey) {
     const y = top + index * (barHeight + gap);
     const barWidth = Math.max(8, (row.count / max) * chartWidth);
     context.fillStyle = "#8fa7b7";
-    context.fillText(trimLabel(row[labelKey], 20), 0, y + barHeight / 2);
+    context.fillText(trimLabel(row[labelKey], isNarrow ? 13 : 20), 0, y + barHeight / 2);
     context.fillStyle = "#18e2f2";
     context.fillRect(left, y, barWidth, barHeight);
     context.fillStyle = "#effcff";

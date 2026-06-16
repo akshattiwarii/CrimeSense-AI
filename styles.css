@@ -879,6 +879,171 @@ td a:hover {
 }
 
 @media (max-width: 560px) {
+  body {
+    background:
+      radial-gradient(circle at 18% 8%, rgba(8, 210, 208, 0.2), transparent 18rem),
+      linear-gradient(180deg, #06101c 0%, #04151d 100%);
+  }
+
+  body::before {
+    height: 420px;
+    opacity: 0.45;
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font-size: 16px;
+  }
+
+  .top-nav {
+    width: calc(100% - 18px);
+    margin-top: 9px;
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .brand-link {
+    justify-content: center;
+    font-size: 1rem;
+  }
+
+  .brand-mark {
+    width: 27px;
+    height: 30px;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .nav-links a {
+    flex: 1;
+    min-width: 116px;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .nav-cta {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 14px;
+  }
+
+  .app-shell,
+  .dashboard-shell,
+  .top-nav {
+    width: calc(100% - 18px);
+  }
+
+  .app-shell {
+    padding: 34px 0 22px;
+  }
+
+  .dashboard-shell {
+    margin: 18px auto 26px;
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .intro {
+    padding: 4px 0 12px;
+  }
+
+  .hero-pill {
+    width: 100%;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 18px;
+    border-radius: 16px;
+    padding: 10px 12px;
+    text-align: left;
+  }
+
+  .status-dot {
+    flex: 0 0 auto;
+    margin-top: 5px;
+  }
+
+  h1 {
+    font-size: 2.35rem;
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+  }
+
+  .dashboard-header h1 {
+    font-size: 2rem;
+  }
+
+  .intro p:not(.eyebrow) {
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  .complaint-panel {
+    margin-top: 24px;
+    padding: 56px 14px 16px;
+    border-radius: 16px;
+  }
+
+  .complaint-panel::after {
+    left: 84px;
+    right: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .fir-builder,
+  .file-drop,
+  .metric-grid div,
+  .dashboard-metrics div,
+  .dashboard-panel,
+  .summary-box,
+  .detail-list div {
+    border-radius: 12px;
+  }
+
+  .fir-builder {
+    padding: 13px;
+  }
+
+  .fir-builder-header {
+    gap: 12px;
+  }
+
+  input,
+  textarea,
+  select {
+    border-radius: 12px;
+    padding: 13px;
+  }
+
+  textarea {
+    min-height: 178px;
+  }
+
+  .fir-section-panel textarea {
+    min-height: 82px;
+  }
+
+  .file-upload-row,
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .file-upload-button,
+  .actions button {
+    width: 100%;
+  }
+
+  .file-upload-status {
+    overflow-wrap: anywhere;
+  }
+
   .metric-grid {
     grid-template-columns: 1fr;
   }
@@ -891,6 +1056,59 @@ td a:hover {
   .report-header button,
   .dashboard-header button {
     margin-top: 12px;
+    width: 100%;
+  }
+
+  .report,
+  .empty-state {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .empty-state {
+    min-height: 210px;
+  }
+
+  .metric-grid,
+  .dashboard-metrics {
+    gap: 10px;
+  }
+
+  .dashboard-metrics strong {
+    font-size: 1.08rem;
+  }
+
+  .dashboard-panel canvas {
+    min-height: 220px;
+  }
+
+  .table-wrap {
+    margin: 0 -4px;
+    padding-bottom: 4px;
+  }
+
+  table {
+    min-width: 620px;
+    font-size: 0.9rem;
+  }
+
+  th,
+  td {
+    padding: 9px 7px;
+  }
+
+  .section-row {
+    gap: 12px;
+  }
+
+  .attachment-preview,
+  .report-attachments {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+
+  .check-list,
+  .steps-list {
+    padding-left: 18px;
   }
 }
 
