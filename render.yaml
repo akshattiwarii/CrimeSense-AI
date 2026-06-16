@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: crimesense-ai-backend
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python3 app.py --serve --host 0.0.0.0
+    envVars:
+      - key: AI_PROVIDER
+        value: openai_compatible
+      - key: AI_BASE_URL
+        value: https://openrouter.ai/api/v1
+      - key: AI_MODEL
+        value: nex-agi/nex-n2-pro:free
+      - key: AI_HTTP_REFERER
+        value: https://crimesense-ai.netlify.app
+      - key: AI_APP_TITLE
+        value: CrimeSense AI

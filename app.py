@@ -1,5 +1,6 @@
 import argparse
 import json
+import os
 import sys
 
 from crimesense_ai.analyzer import analyze_complaint
@@ -13,7 +14,7 @@ def main():
     parser = argparse.ArgumentParser(description="CrimeSense AI complaint triage")
     parser.add_argument("--serve", action="store_true", help="Run the web app")
     parser.add_argument("--host", default="127.0.0.1", help="Server host")
-    parser.add_argument("--port", default=8000, type=int, help="Server port")
+    parser.add_argument("--port", default=int(os.getenv("PORT", "8000")), type=int, help="Server port")
     parser.add_argument("--text", help="Analyze complaint text from command line")
     args = parser.parse_args()
 
