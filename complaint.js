@@ -3,6 +3,11 @@ const complaintId = params.get("id");
 
 loadComplaint();
 
+function apiUrl(path) {
+  const baseUrl = (window.CRIMESENSE_API_BASE_URL || "").replace(/\/$/, "");
+  return `${baseUrl}${path}`;
+}
+
 async function loadComplaint() {
   if (!complaintId) {
     showError("Complaint ID missing.");
@@ -10,7 +15,7 @@ async function loadComplaint() {
   }
 
   try {
-    const response = await fetch(`/api/complaint?id=${encodeURIComponent(complaintId)}`);
+    const response = await fetch(apiUrl(`/api/complaint?id=${encodeURIComponent(complaintId)}`));
     const record = await response.json();
     if (!response.ok) {
       showError(record.error || "Complaint not found.");

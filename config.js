@@ -1,0 +1,1 @@
+window.CRIMESENSE_API_BASE_URL = window.CRIMESENSE_API_BASE_URL || "";

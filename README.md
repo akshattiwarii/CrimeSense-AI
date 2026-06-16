@@ -142,6 +142,62 @@ Dashboard:
 http://127.0.0.1:8000/dashboard.html
 ```
 
+## Deploy
+
+### Recommended Simple Deployment
+
+This project has two parts:
+
+- Frontend: HTML, CSS, and JavaScript
+- Backend: Python API in `app.py` / `crimesense_ai/server.py`
+
+Netlify is excellent for the frontend, but the current Python backend should be hosted on a Python server platform such as Render, Railway, Fly.io, a VPS, or any service that can run:
+
+```bash
+python3 app.py --serve --host 0.0.0.0 --port $PORT
+```
+
+### Deploy Frontend On Netlify
+
+1. Push the project to GitHub.
+2. Open Netlify and choose **Add new site**.
+3. Select **Import an existing project**.
+4. Connect your GitHub repository.
+5. Use these build settings:
+
+```text
+Build command: leave empty
+Publish directory: .
+```
+
+The included `netlify.toml` already sets this.
+
+### Connect Netlify To Your Backend
+
+After your Python backend is live, edit `config.js`:
+
+```js
+window.CRIMESENSE_API_BASE_URL = "https://your-python-backend.example.com";
+```
+
+Then commit and push:
+
+```bash
+git add config.js
+git commit -m "Configure production API backend"
+git push
+```
+
+For local development, keep it empty:
+
+```js
+window.CRIMESENSE_API_BASE_URL = "";
+```
+
+### Why Backend Cannot Fully Run On Netlify As-Is
+
+Netlify serves static sites and serverless functions. This project currently uses a Python HTTP server with local JSON storage, so it should be deployed on a Python backend host unless you rewrite the API as Netlify Functions and move storage to Netlify Blobs/Database or another database.
+
 ## AI Provider Setup
 
 The app works offline with `local_fallback`, but real AI output needs a provider.

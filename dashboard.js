@@ -2,9 +2,14 @@ const refreshDashboardButton = document.querySelector("#refreshDashboardButton")
 
 loadDashboard();
 
+function apiUrl(path) {
+  const baseUrl = (window.CRIMESENSE_API_BASE_URL || "").replace(/\/$/, "");
+  return `${baseUrl}${path}`;
+}
+
 async function loadDashboard() {
   try {
-    const response = await fetch("/api/dashboard");
+    const response = await fetch(apiUrl("/api/dashboard"));
     if (!response.ok) {
       return;
     }

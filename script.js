@@ -9,6 +9,11 @@ const firSectionEmpty = document.querySelector("[data-fir-empty]");
 const analyzeButton = form.querySelector("button[type='submit']");
 let currentAttachments = [];
 
+function apiUrl(path) {
+  const baseUrl = (window.CRIMESENSE_API_BASE_URL || "").replace(/\/$/, "");
+  return `${baseUrl}${path}`;
+}
+
 const heroPillMessages = [
   "AI-powered complaint triage for police teams",
   "Classifies cyber, theft, traffic, harassment, and fraud complaints",
@@ -75,7 +80,7 @@ function setActiveFirSection(sectionName) {
 }
 
 async function analyzeComplaint(payload) {
-  const response = await fetch("/api/analyze", {
+  const response = await fetch(apiUrl("/api/analyze"), {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
