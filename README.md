@@ -157,6 +157,8 @@ Netlify is excellent for the frontend, but the current Python backend should be 
 python3 app.py --serve --host 0.0.0.0 --port $PORT
 ```
 
+Important: Render's default filesystem is ephemeral. If you store complaints in the local JSON file without a persistent disk or database, dashboard data can disappear after restart or redeploy.
+
 ### Deploy Frontend On Netlify
 
 1. Push the project to GitHub.
@@ -319,6 +321,14 @@ data/complaints.json
 ```
 
 This file is ignored because complaint records may contain sensitive personal data. The app creates it automatically.
+
+For hosted deployments, set `CRIMESENSE_DATA_DIR` to choose where this file is written:
+
+```text
+CRIMESENSE_DATA_DIR=/opt/render/project/src/data
+```
+
+On Render, attach a persistent disk to that same mount path if you want dashboard data to survive restarts and redeploys. For production, prefer PostgreSQL or another managed database.
 
 ## Project Structure
 

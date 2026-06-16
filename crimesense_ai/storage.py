@@ -1,4 +1,5 @@
 import json
+import os
 import re
 import threading
 from collections import Counter
@@ -6,7 +7,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 
-DATA_DIR = Path("data")
+DATA_DIR = Path(os.getenv("CRIMESENSE_DATA_DIR", "data"))
 COMPLAINTS_FILE = DATA_DIR / "complaints.json"
 _LOCK = threading.Lock()
 

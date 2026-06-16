@@ -16,3 +16,5 @@ services:
         value: https://crimesense-ai.netlify.app
       - key: AI_APP_TITLE
         value: CrimeSense AI
+      - key: CRIMESENSE_DATA_DIR
+        value: /opt/render/project/src/data
