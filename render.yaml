@@ -18,3 +18,5 @@ services:
         value: CrimeSense AI
       - key: CRIMESENSE_DATA_DIR
         value: /opt/render/project/src/data
+      - key: CRIMESENSE_SEED_SAMPLES
+        value: "1"

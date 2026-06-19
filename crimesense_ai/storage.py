@@ -6,10 +6,13 @@ from collections import Counter
 from datetime import datetime, timedelta
 from pathlib import Path
 
+from .sample_data import sample_complaints
+
 
 DATA_DIR = Path(os.getenv("CRIMESENSE_DATA_DIR", "data"))
 COMPLAINTS_FILE = DATA_DIR / "complaints.json"
 _LOCK = threading.Lock()
+SEED_SAMPLES = os.getenv("CRIMESENSE_SEED_SAMPLES", "1").strip().lower() not in {"0", "false", "no"}
 
 CYBER_TERMS = (
     "cyber",
@@ -66,7 +69,7 @@ def save_complaint(analysis):
 
 def load_complaints():
     if not COMPLAINTS_FILE.exists():
-        return []
+        return sample_complaints() if SEED_SAMPLES else []
 
     try:
         data = json.loads(COMPLAINTS_FILE.read_text(encoding="utf-8"))
@@ -76,7 +79,14 @@ def load_complaints():
     if not isinstance(data, list):
         return []
 
-    return [_normalize_record(record, index) for index, record in enumerate(data, start=1)]
+    records = [_normalize_record(record, index) for index, record in enumerate(data, start=1)]
+    return _merge_seed_samples(records) if SEED_SAMPLES else records
+
+
+def _merge_seed_samples(records):
+    existing_ids = {str(record.get("id")) for record in records}
+    seeded = [record for record in sample_complaints() if str(record.get("id")) not in existing_ids]
+    return [*seeded, *records]
 
 
 def find_complaint(complaint_id):

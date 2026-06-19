@@ -330,6 +330,12 @@ CRIMESENSE_DATA_DIR=/opt/render/project/src/data
 
 On Render, attach a persistent disk to that same mount path if you want dashboard data to survive restarts and redeploys. For production, prefer PostgreSQL or another managed database.
 
+When no runtime data file exists, the dashboard starts with 20 demo FIR records. Disable this in production with:
+
+```text
+CRIMESENSE_SEED_SAMPLES=0
+```
+
 ## Project Structure
 
 ```text
